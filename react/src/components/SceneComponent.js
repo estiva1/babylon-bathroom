@@ -102,17 +102,17 @@ const onSceneMount = (e) => {
 
           icon.style.width = "50px";
           icon.style.height = "50px";
-          icon.style.margin = "0";
+          icon.style.margin = "0px";
           icon.style.cursor = "pointer";
 
-          const nameTexEl = document.createElement("p");
-          nameTexEl.style.margin = "0";
-          nameTexEl.style.fontSize = "10px";
+          const textureText = document.createElement("p");
+          textureText.style.margin = "0px";
+          textureText.style.fontSize = "10px";
 
-          const nameTexture = "Title " + (i + 1);
-          nameTexEl.innerHTML = nameTexture;
+          const textureName = "Tile " + (i + 1);
+          textureText.innerHTML = textureName;
           textureContainer.appendChild(icon);
-          textureContainer.appendChild(nameTexEl);
+          textureContainer.appendChild(textureText);
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
@@ -121,9 +121,9 @@ const onSceneMount = (e) => {
             if (selectedMesh.material) {
               selectedMesh.material.albedoTexture = textureObject;
               selectedMesh.material.albedoTexture.uScale =
-                currentTileWidth === 30 ? 10 : 5;
+                currentTileWidth == 30 ? 10 : 5;
               selectedMesh.material.albedoTexture.vScale =
-                currentTileHeight === 30 ? 10 : 5;
+                currentTileHeight == 30 ? 10 : 5;
             }
             popup.style.display = "none";
           });

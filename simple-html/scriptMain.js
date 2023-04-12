@@ -92,14 +92,14 @@ const createScene = () => {
           icon.style.margin = "0";
           icon.style.cursor = "pointer";
 
-          const nameTexEl = document.createElement("p");
-          nameTexEl.style.margin = "0";
-          nameTexEl.style.fontSize = "10px";
+          const textureText = document.createElement("p");
+          textureText.style.margin = "0px";
+          textureText.style.fontSize = "10px";
 
-          const nameTexture = textures[i].slice(9, -4);
-          nameTexEl.innerHTML = nameTexture;
+          const textureName = "Tile " + (i + 1);
+          textureText.innerHTML = textureName;
           textureContainer.appendChild(icon);
-          textureContainer.appendChild(nameTexEl);
+          textureContainer.appendChild(textureText);
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
