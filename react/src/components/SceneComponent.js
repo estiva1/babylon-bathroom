@@ -105,13 +105,14 @@ const onSceneMount = (e) => {
           icon.style.margin = "0";
           icon.style.cursor = "pointer";
 
-          const tileName = document.createElement("p");
-          tileName.style.margin = "0";
-          tileName.style.fontSize = "10px";
+          const nameTexEl = document.createElement("p");
+          nameTexEl.style.margin = "0";
+          nameTexEl.style.fontSize = "10px";
 
-          tileName.innerHTML = "Tile " + (i+1);
+          const nameTexture = "Title " + (i + 1);
+          nameTexEl.innerHTML = nameTexture;
           textureContainer.appendChild(icon);
-          textureContainer.appendChild(tileName);
+          textureContainer.appendChild(nameTexEl);
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
