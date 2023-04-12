@@ -109,12 +109,15 @@ const onSceneMount = (e) => {
           tileName.style.margin = "0";
           tileName.style.fontSize = "10px";
 
-          tileName.innerHTML = "Tile " + i++;
+          tileName.innerHTML = "Tile " + (i+1);
           textureContainer.appendChild(icon);
           textureContainer.appendChild(tileName);
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
+          console.log(currentTileWidth);
+          console.log(currentTileHeight);
+
 
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
