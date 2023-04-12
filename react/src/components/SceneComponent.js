@@ -35,7 +35,7 @@ const onSceneMount = (e) => {
 
   const loader = SceneLoader.ImportMeshAsync(
     "",
-    "https://github.com/estiva1/babylon-bathroom/blob/main/glb-models/",
+    "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/",
     "babylonBathroom.glb",
     scene,
     () => {
@@ -43,7 +43,7 @@ const onSceneMount = (e) => {
       popup.style.position = "absolute";
       popup.style.top = "50px";
       popup.style.left = "50px";
-      popup.style.width = "220px";
+      popup.style.width = "230px";
       popup.style.height = "200px";
       popup.style.background = "#fff";
       popup.style.overflow = "scroll";
