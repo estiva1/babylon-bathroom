@@ -3,7 +3,6 @@ import { Engine, Scene } from "react-babylonjs";
 import {
   Vector3,
   ArcRotateCamera,
-  HemisphericLight,
   PointLight,
   SceneLoader,
   Texture,
@@ -12,13 +11,6 @@ import "@babylonjs/loaders";
 
 const onSceneMount = (e) => {
   const { canvas, scene } = e;
-
-  // const hemisphericLight = new HemisphericLight(
-  //   "light1",
-  //   new Vector3(-50, 100, -200),
-  //   scene
-  // );
-  // hemisphericLight.intensity = 0.9;
 
   const pointLight = new PointLight(
     "pointLight1",
@@ -57,21 +49,6 @@ const onSceneMount = (e) => {
       popup.style.overflow = "scroll";
       popup.style.display = "none";
       document.body.appendChild(popup);
-
-      // const textures = [
-      //   {
-      //     name: "Tile 1",
-      //     url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile1(30x30).jpg",
-      //     tileWidth: 30,
-      //     tileHeight: 30,
-      //   },
-      //   {
-      //     name: "Tile 2",
-      //     url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile2(30x30).jpg",
-      //     tileWidth: 30,
-      //     tileHeight: 30,
-      //   },
-      // ];
 
       const textures = [
         "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile1(30x30).jpg",
