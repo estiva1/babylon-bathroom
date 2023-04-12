@@ -1,7 +1,7 @@
 import SceneComponent from "./components/SceneComponent";
 
-function App() {
+const App = () => {
   return <SceneComponent />;
-}
+};
 
 export default App;

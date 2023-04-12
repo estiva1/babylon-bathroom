@@ -1,52 +1,55 @@
-import React from "react";
-import { Engine, Scene } from "react-babylonjs";
-import {
-  Vector3,
-  ArcRotateCamera,
-  HemisphericLight,
-  PointLight,
-  SceneLoader,
-  TextureBlock,
-} from "@babylonjs/core";
-import "@babylonjs/loaders";
+const canvas = document.getElementById("renderCanvas");
 
-const onSceneMount = (e) => {
-  const { canvas, scene } = e;
+const startRenderLoop = (engine) => {
+  engine.runRenderLoop(() => {
+    if (sceneToRender && sceneToRender.activeCamera) {
+      sceneToRender.render();
+    }
+  });
+};
 
-  // const hemisphericLight = new HemisphericLight(
-  //   "light1",
-  //   new Vector3(-50, 100, -200),
-  //   scene
-  // );
-  // hemisphericLight.intensity = 0.9;
+const createDefaultEngine = () => {
+  return new BABYLON.Engine(canvas, true, {
+    preserveDrawingBuffer: true,
+    stencil: true,
+    disableWebGL2Support: false,
+  });
+};
 
-  const pointLight = new PointLight(
-    "pointLight1",
-    new Vector3(1, 10, 1),
+const createScene = () => {
+  const scene = new BABYLON.Scene(engine);
+
+  const pointLight = new BABYLON.PointLight(
+    "light1",
+    new BABYLON.Vector3(-50, 100, -200),
     scene
   );
-  pointLight.intensity = 30;
+  pointLight.intensity = 35;
 
-  const camera = new ArcRotateCamera(
-    "camera1",
+  const camera = new BABYLON.ArcRotateCamera(
+    "Camera",
     1.3,
-    1.3,
+    0,
     1.5,
-    new Vector3(0.3, 1.8, -2.5),
+    BABYLON.Vector3(0.3, 1.8, -2.5),
     scene
   );
 
-  camera.speed = 0.001;
-  camera.minZ = 0.001;
-  scene.activeCameras.push(camera);
-  camera.attachControl(canvas, true);
+  camera.attachControl(canvas, false);
 
-  const loader = SceneLoader.ImportMeshAsync(
-    "",
-    "https://raw.githubusercontent.com/estiva1/glb-models/master/",
+  BABYLON.SceneLoader.ImportMesh(
+    null,
+    "./models/",
     "babylonBathroom.glb",
     scene,
     () => {
+      camera.alpha = 0;
+      camera.beta = 0;
+      camera.radius = 1.5;
+      camera.target = new BABYLON.Vector3(0, 1.5, -2.5);
+
+      engine.hideLoadingUI();
+
       const popup = document.createElement("div");
       popup.style.position = "absolute";
       popup.style.top = "50px";
@@ -77,28 +80,27 @@ const onSceneMount = (e) => {
 
       for (let i = 0; i < textures.length; i++) {
         ((texture) => {
-          const textureObject = new TextureBlock(texture, scene);
+          const textureObject = new BABYLON.Texture(texture, scene);
           const textureContainer = document.createElement("div");
           textureContainer.style.margin = "5px";
           textureContainer.style.padding = "0";
 
           const icon = document.createElement("img");
-          icon.src = `${textures[i]}`;
-          //console.log(`${textures[i]}`);
-
+          icon.src = textures[i];
+          //console.log(icon.src);
           icon.style.width = "50px";
           icon.style.height = "50px";
           icon.style.margin = "0";
           icon.style.cursor = "pointer";
 
-          const tileName = document.createElement("p");
-          tileName.style.margin = "0";
-          tileName.style.fontSize = "10px";
+          const nameTexEl = document.createElement("p");
+          nameTexEl.style.margin = "0";
+          nameTexEl.style.fontSize = "10px";
 
-          const tileTexture = textures[i].slice(9, -4);
-          tileName.innerHTML = tileTexture;
+          const nameTexture = textures[i].slice(9, -4);
+          nameTexEl.innerHTML = nameTexture;
           textureContainer.appendChild(icon);
-          textureContainer.appendChild(tileName);
+          textureContainer.appendChild(nameTexEl);
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
@@ -107,9 +109,9 @@ const onSceneMount = (e) => {
             if (selectedMesh.material) {
               selectedMesh.material.albedoTexture = textureObject;
               selectedMesh.material.albedoTexture.uScale =
-                currentTileWidth === 30 ? 10 : 5;
+                currentTileWidth == 30 ? 10 : 5;
               selectedMesh.material.albedoTexture.vScale =
-                currentTileHeight === 30 ? 10 : 5;
+                currentTileHeight == 30 ? 10 : 5;
             }
             popup.style.display = "none";
           });
@@ -118,7 +120,6 @@ const onSceneMount = (e) => {
       }
 
       let selectedMesh;
-
       scene.onPointerDown = (evt, pickResult) => {
         if (pickResult.hit) {
           selectedMesh = pickResult.pickedMesh;
@@ -134,26 +135,26 @@ const onSceneMount = (e) => {
   scene.registerBeforeRender(() => {
     pointLight.position = camera.position;
   });
+  return scene;
+};
 
-  scene.getEngine().runRenderLoop(() => {
-    if (scene) {
-      scene.render();
+window.initFunction = async () => {
+  var asyncEngineCreation = async () => {
+    try {
+      return createDefaultEngine();
+    } catch (e) {
+      console.error("Error!", e);
+      return createDefaultEngine();
     }
-  });
+  };
+
+  window.engine = await asyncEngineCreation();
+  if (!engine) throw "Engine should not be null.";
+
+  startRenderLoop(engine, canvas);
+  window.scene = createScene();
 };
 
-const SceneComponent = () => {
-  return (
-    <div>
-      <Engine
-        antialias={true}
-        adaptToDeviceRatio={true}
-        canvasId="sample-canvas"
-      >
-        <Scene onSceneMount={onSceneMount} />
-      </Engine>
-    </div>
-  );
-};
-
-export default SceneComponent;
+initFunction().then(() => {
+  sceneToRender = scene;
+});
