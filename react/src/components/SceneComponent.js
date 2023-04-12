@@ -109,7 +109,7 @@ const onSceneMount = (e) => {
           tileName.style.margin = "0";
           tileName.style.fontSize = "10px";
 
-          tileName.innerHTML = "Tile " + i + 1;
+          tileName.innerHTML = "Tile " + i++;
           textureContainer.appendChild(icon);
           textureContainer.appendChild(tileName);
 
