@@ -1,16 +1,5 @@
 // import { createFormAddTile } from "./createFormAddTile.js";
 
-BABYLON.DefaultLoadingScreen.prototype.displayLoadingUI = function () {
-  this._resizeLoadingUI();
-  window.addEventListener("resize", this._resizeLoadingUI);
-};
-
-BABYLON.DefaultLoadingScreen.prototype.hideLoadingUI = function () {
-  document.getElementById("customLoadingScreenDiv").style.display = "none";
-  console.log("scene is now loaded");
-  document.getElementById("customLoadingScreenDiv").outerHTML = "";
-};
-
 var canvas = document.getElementById("renderCanvas");
 
 var startRenderLoop = function (engine, canvas) {
@@ -31,6 +20,7 @@ var createDefaultEngine = function () {
     disableWebGL2Support: false,
   });
 };
+
 var createScene = function () {
   var scene = new BABYLON.Scene(engine);
   //Adding a light
@@ -48,7 +38,7 @@ var createScene = function () {
     0,
     0,
     2,
-    BABYLON.Vector3(0, 1.85, -2.5),
+    BABYLON.Vector3(0, 0.3, -0.7),
     scene
   );
 
@@ -60,7 +50,7 @@ var createScene = function () {
     "",
     "babylonBathroom.glb",
     scene,
-    function (newMeshes) {
+    function () {
       camera.radius = 0.3;
       camera.target = new BABYLON.Vector3(0, 1.5, -2.5);
       camera.alpha = -3.6437; //-Math.PI/2;
@@ -105,6 +95,7 @@ var createScene = function () {
           textureContainer.style.padding = "0";
           var icon = document.createElement("img");
           icon.src = textureObject.url;
+          //console.log(icon.src);
           icon.style.width = "50px";
           icon.style.height = "50px";
           icon.style.margin = "0";
