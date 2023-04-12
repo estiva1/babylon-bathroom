@@ -174,13 +174,21 @@ const createScene = () => {
           const currentTileWidth = textures[i].width;
           const currentTileHeight = textures[i].height;
 
+          const scaleFactor = 10;
+          const standartTileWidth = 30;
+          const standartTileHeight = 30;
+
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
               selectedMesh.material.albedoTexture = textureObject;
               selectedMesh.material.albedoTexture.uScale =
-                currentTileWidth == 30 ? 10 : 5;
+                currentTileWidth == standartTileWidth
+                  ? scaleFactor
+                  : (standartTileWidth / currentTileWidth) * scaleFactor;
               selectedMesh.material.albedoTexture.vScale =
-                currentTileHeight == 30 ? 10 : 5;
+                currentTileHeight == standartTileHeight
+                  ? scaleFactor
+                  : (standartTileHeight / currentTileHeight) * scaleFactor;
             }
             popup.style.display = "none";
           });
