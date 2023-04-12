@@ -87,7 +87,6 @@ const createScene = () => {
 
           const icon = document.createElement("img");
           icon.src = textures[i];
-          //console.log(icon.src);
           icon.style.width = "50px";
           icon.style.height = "50px";
           icon.style.margin = "0";

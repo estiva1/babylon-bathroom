@@ -6,7 +6,7 @@ import {
   HemisphericLight,
   PointLight,
   SceneLoader,
-  TextureBlock,
+  Texture,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
@@ -58,8 +58,26 @@ const onSceneMount = (e) => {
       popup.style.display = "none";
       document.body.appendChild(popup);
 
+      const texture1 =
+        "https://raw.githubusercontent.com/estiva1/glb-models/main/tile1(30x30).jpg";
+
       const textures = [
-        "textures/tile1(30x30).jpg",
+        {
+          name: "Tile 1",
+          url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile1(30x30).jpg",
+          tileWidth: 30,
+          tileHeight: 30,
+        },
+        {
+          name: "Tile 2",
+          url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile2(30x30).jpg",
+          tileWidth: 30,
+          tileHeight: 30,
+        },
+      ];
+
+      const textureseeee = [
+        texture1,
         "textures/tile2(30x30).jpg",
         "textures/tile4(60x30).jpg",
         "textures/tile4_1(30x60).jpg",
@@ -77,14 +95,13 @@ const onSceneMount = (e) => {
 
       for (let i = 0; i < textures.length; i++) {
         ((texture) => {
-          const textureObject = new TextureBlock(texture, scene);
+          const textureObject = new Texture(texture, scene);
           const textureContainer = document.createElement("div");
           textureContainer.style.margin = "5px";
           textureContainer.style.padding = "0";
 
           const icon = document.createElement("img");
-          icon.src = `${textures[i]}`;
-          //console.log(`${textures[i]}`);
+          icon.src = textureObject.url;
 
           icon.style.width = "50px";
           icon.style.height = "50px";
