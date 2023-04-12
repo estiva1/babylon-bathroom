@@ -43,7 +43,7 @@ const onSceneMount = (e) => {
 
   const loader = SceneLoader.ImportMeshAsync(
     "",
-    "https://raw.githubusercontent.com/estiva1/glb-models/master/",
+    "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/",
     "babylonBathroom.glb",
     scene,
     () => {
@@ -58,39 +58,19 @@ const onSceneMount = (e) => {
       popup.style.display = "none";
       document.body.appendChild(popup);
 
-      const texture1 =
-        "https://raw.githubusercontent.com/estiva1/glb-models/main/tile1(30x30).jpg";
-
       const textures = [
         {
           name: "Tile 1",
-          url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile1(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile1(30x30).jpg",
           tileWidth: 30,
           tileHeight: 30,
         },
         {
           name: "Tile 2",
-          url: "https://raw.githubusercontent.com/estiva1/glb-models/main/tile2(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile2(30x30).jpg",
           tileWidth: 30,
           tileHeight: 30,
         },
-      ];
-
-      const textureseeee = [
-        texture1,
-        "textures/tile2(30x30).jpg",
-        "textures/tile4(60x30).jpg",
-        "textures/tile4_1(30x60).jpg",
-        "textures/tile4_2(30x30).jpg",
-        "textures/tile5(30x30).jpg",
-        "textures/tile5_1(30x60).jpg",
-        "textures/tile6(30x30).jpg",
-        "textures/tile6_1(60x60).jpg",
-        "textures/tile7(30x30).jpg",
-        "textures/tile9(60x60).jpg",
-        "textures/Water_Sp.jpg",
-        "textures/Asphal01.jpg",
-        "textures/Grass_01.jpg",
       ];
 
       for (let i = 0; i < textures.length; i++) {
@@ -101,7 +81,7 @@ const onSceneMount = (e) => {
           textureContainer.style.padding = "0";
 
           const icon = document.createElement("img");
-          icon.src = textureObject.url;
+          icon.src = textures[i].url; //URL
 
           icon.style.width = "50px";
           icon.style.height = "50px";
@@ -112,13 +92,13 @@ const onSceneMount = (e) => {
           tileName.style.margin = "0";
           tileName.style.fontSize = "10px";
 
-          const tileTexture = textures[i].slice(9, -4);
+          const tileTexture = textures[i].name; //name
           tileName.innerHTML = tileTexture;
           textureContainer.appendChild(icon);
           textureContainer.appendChild(tileName);
 
-          const currentTileWidth = textures[i].slice(-11).slice(1, -8);
-          const currentTileHeight = textures[i].slice(-11).slice(4, -5);
+          const currentTileWidth = textures[i].tileWidth;
+          const currentTileHeight = textures[i].tileHeight;
 
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
