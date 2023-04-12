@@ -25,7 +25,7 @@ const onSceneMount = (e) => {
     new Vector3(1, 10, 1),
     scene
   );
-  pointLight.intensity = 30;
+  pointLight.intensity = 40;
 
   const camera = new ArcRotateCamera(
     "camera1",
@@ -115,9 +115,6 @@ const onSceneMount = (e) => {
 
           const currentTileWidth = textures[i].slice(-11).slice(1, -8);
           const currentTileHeight = textures[i].slice(-11).slice(4, -5);
-          console.log(currentTileWidth);
-          console.log(currentTileHeight);
-
 
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
