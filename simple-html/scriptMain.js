@@ -35,7 +35,32 @@ const createScene = () => {
     scene
   );
 
-  camera.attachControl(canvas, false);
+  camera.attachControl(canvas, true);
+
+  /////////////////////////
+  // var decalTexture = new BABYLON.Texture(
+  //   "textures/dark.png",
+  //   scene,
+  //   true,
+  //   true,
+  //   BABYLON.Texture.TRILINEAR_SAMPLINGMODE,
+  //   null,
+  //   null
+  // );
+
+  // var decalMaterial = new BABYLON.StandardMaterial("decal", scene);
+  // decalMaterial.alpha = 1;
+  // decalMaterial.transparencyMode = BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
+  // decalMaterial.backFaceCulling = false;
+  // decalMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+  // decalMaterial.diffuseTexture = decalTexture;
+  // decalMaterial.diffuseTexture.uScale = 4;
+  // decalMaterial.diffuseTexture.vScale = -4;
+  // decalMaterial.diffuseTexture.hasAlpha = true;
+  // decalMaterial.useAlphaFromDiffuseTexture = true;
+
+  // decalSphere.material = decalMaterial;
+  //////////////////
 
   BABYLON.SceneLoader.ImportMesh(
     null,
@@ -148,9 +173,17 @@ const createScene = () => {
         },
       ];
 
+      // joints
+      const joints = [
+        { color: "Dark", url: "textures/dark.png", size: "30" },
+        { color: "Light", url: "textures/light.png", size: "30" },
+        // { color: "Cat :)", url: "textures/Cat-PNG-2.png", size: "30" },
+      ];
+
       for (let i = 0; i < textures.length; i++) {
         ((texture) => {
-          const textureObject = new BABYLON.Texture(texture.url, scene);
+          var textureObject = new BABYLON.Texture(texture.url, scene);
+
           const textureContainer = document.createElement("div");
           textureContainer.style.margin = "5px";
           textureContainer.style.padding = "0px";
@@ -196,6 +229,64 @@ const createScene = () => {
         })(textures[i]);
       }
 
+      for (let j = 0; j < joints.length; j++) {
+        ((joint) => {
+          const jointObject = new BABYLON.Texture(joint.url, scene);
+          const decalMaterial = new BABYLON.StandardMaterial("decal", scene);
+
+          decalMaterial.specularColor = new BABYLON.Color3(0, 0, 0); //simulating matte texture
+          decalMaterial.alpha = 1;
+          decalMaterial.transparencyMode =
+            BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
+          decalMaterial.backFaceCulling = false;
+          decalMaterial.diffuseTexture = jointObject;
+          decalMaterial.diffuseTexture.hasAlpha = true;
+          decalMaterial.useAlphaFromDiffuseTexture = true;
+
+          const jointContainer = document.createElement("div");
+          jointContainer.style.margin = "5px";
+          jointContainer.style.padding = "0px";
+
+          const jointIcon = document.createElement("img");
+          jointIcon.src = joints[j].url;
+          jointIcon.style.width = "50px";
+          jointIcon.style.height = "50px";
+          jointIcon.style.margin = "0px";
+          jointIcon.style.cursor = "pointer";
+
+          const jointText = document.createElement("p");
+          jointText.style.margin = "0px";
+          jointText.style.fontSize = "10px";
+
+          const jointName = joints[j].color;
+          jointText.innerHTML = jointName;
+          jointContainer.appendChild(jointIcon);
+          jointContainer.appendChild(jointText);
+
+          const currentJointSize = joints[j].size;
+
+          const scaleFactor = 10;
+          const standartJointSize = 30;
+
+          jointIcon.addEventListener("click", () => {
+            if (selectedMesh.material) {
+              selectedMesh.material = decalMaterial;
+              selectedMesh.material.albedoTexture.uScale =
+                currentJointSize == standartJointSize
+                  ? scaleFactor
+                  : (standartJointSize / currentJointSize) * scaleFactor;
+              selectedMesh.material.albedoTexture.vScale =
+                currentJointSize == standartJointSize
+                  ? scaleFactor
+                  : (standartJointSize / currentJointSize) * scaleFactor;
+            }
+            popup.style.display = "none";
+          });
+          popup.appendChild(jointContainer);
+        })(joints[j]);
+      } //---joints end
+
+      //popup modal
       let selectedMesh;
       scene.onPointerDown = (evt, pickResult) => {
         if (pickResult.hit) {
