@@ -34,33 +34,101 @@ const createScene = () => {
     BABYLON.Vector3(0.3, 1.8, -2.5),
     scene
   );
-
   camera.attachControl(canvas, true);
 
-  /////////////////////////
-  // var decalTexture = new BABYLON.Texture(
-  //   "textures/dark.png",
-  //   scene,
-  //   true,
-  //   true,
-  //   BABYLON.Texture.TRILINEAR_SAMPLINGMODE,
-  //   null,
-  //   null
-  // );
+  const textures = [
+    {
+      name: "Tile 1 (30x30)",
+      url: "textures/tile1(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 2 (30x30)",
+      url: "textures/tile2(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 3 (60x30)",
+      url: "textures/tile4(60x30).jpg",
+      width: "60",
+      height: "30",
+    },
+    {
+      name: "Tile 4 (30x60)",
+      url: "textures/tile4_1(30x60).jpg",
+      width: "30",
+      height: "60",
+    },
+    {
+      name: "Tile 5 (30x30)",
+      url: "textures/tile4_2(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 6 (30x30)",
+      url: "textures/tile5(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 7 (30x60)",
+      url: "textures/tile5_1(30x60).jpg",
+      width: "30",
+      height: "60",
+    },
+    {
+      name: "Tile 8 (30x30)",
+      url: "textures/tile6(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 9 (60x60)",
+      url: "textures/tile6_1(60x60).jpg",
+      width: "60",
+      height: "60",
+    },
+    {
+      name: "Tile 10 (30x30)",
+      url: "textures/tile7(30x30).jpg",
+      width: "30",
+      height: "30",
+    },
+    {
+      name: "Tile 11 (60x60)",
+      url: "textures/tile9(60x60).jpg",
+      width: "60",
+      height: "60",
+    },
+    {
+      name: "Tile 12 (fill)",
+      url: "textures/Water_Sp.jpg",
+      width: "_",
+      height: "_",
+    },
+    {
+      name: "Tile 13 (fill)",
+      url: "textures/Asphal01.jpg",
+      width: "_",
+      height: "_",
+    },
+    {
+      name: "Tile 14 (fill)",
+      url: "textures/Grass_01.jpg",
+      width: "_",
+      height: "_",
+    },
+  ];
 
-  // var decalMaterial = new BABYLON.StandardMaterial("decal", scene);
-  // decalMaterial.alpha = 1;
-  // decalMaterial.transparencyMode = BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
-  // decalMaterial.backFaceCulling = false;
-  // decalMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
-  // decalMaterial.diffuseTexture = decalTexture;
-  // decalMaterial.diffuseTexture.uScale = 4;
-  // decalMaterial.diffuseTexture.vScale = -4;
-  // decalMaterial.diffuseTexture.hasAlpha = true;
-  // decalMaterial.useAlphaFromDiffuseTexture = true;
-
-  // decalSphere.material = decalMaterial;
-  //////////////////
+  // joints
+  const joints = [
+    { color: "Dark", url: "textures/dark.png", size: "30" },
+    { color: "Light", url: "textures/light.png", size: "30" },
+    // { color: "Cat :)", url: "textures/Cat-PNG-2.png", size: "30" },
+  ];
 
   BABYLON.SceneLoader.ImportMesh(
     null,
@@ -85,100 +153,6 @@ const createScene = () => {
       popup.style.overflow = "scroll";
       popup.style.display = "none";
       document.body.appendChild(popup);
-
-      const textures = [
-        {
-          name: "Tile 1 (30x30)",
-          url: "textures/tile1(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 2 (30x30)",
-          url: "textures/tile2(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 3 (60x30)",
-          url: "textures/tile4(60x30).jpg",
-          width: "60",
-          height: "30",
-        },
-        {
-          name: "Tile 4 (30x60)",
-          url: "textures/tile4_1(30x60).jpg",
-          width: "30",
-          height: "60",
-        },
-        {
-          name: "Tile 5 (30x30)",
-          url: "textures/tile4_2(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 6 (30x30)",
-          url: "textures/tile5(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 7 (30x60)",
-          url: "textures/tile5_1(30x60).jpg",
-          width: "30",
-          height: "60",
-        },
-        {
-          name: "Tile 8 (30x30)",
-          url: "textures/tile6(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 9 (60x60)",
-          url: "textures/tile6_1(60x60).jpg",
-          width: "60",
-          height: "60",
-        },
-        {
-          name: "Tile 10 (30x30)",
-          url: "textures/tile7(30x30).jpg",
-          width: "30",
-          height: "30",
-        },
-        {
-          name: "Tile 11 (60x60)",
-          url: "textures/tile9(60x60).jpg",
-          width: "60",
-          height: "60",
-        },
-        {
-          name: "Tile 12 (fill)",
-          url: "textures/Water_Sp.jpg",
-          width: "_",
-          height: "_",
-        },
-        {
-          name: "Tile 13 (fill)",
-          url: "textures/Asphal01.jpg",
-          width: "_",
-          height: "_",
-        },
-        {
-          name: "Tile 14 (fill)",
-          url: "textures/Grass_01.jpg",
-          width: "_",
-          height: "_",
-        },
-      ];
-
-      // joints
-      const joints = [
-        { color: "Dark", url: "textures/dark.png", size: "30" },
-        { color: "Light", url: "textures/light.png", size: "30" },
-        // { color: "Cat :)", url: "textures/Cat-PNG-2.png", size: "30" },
-      ];
 
       for (let i = 0; i < textures.length; i++) {
         ((texture) => {
@@ -239,6 +213,8 @@ const createScene = () => {
           decalMaterial.transparencyMode =
             BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
           decalMaterial.backFaceCulling = false;
+          //decalMaterial.diffuseTexture.uScale = 10;
+          //decalMaterial.diffuseTexture.vScale = 10;
           decalMaterial.diffuseTexture = jointObject;
           decalMaterial.diffuseTexture.hasAlpha = true;
           decalMaterial.useAlphaFromDiffuseTexture = true;
@@ -271,11 +247,11 @@ const createScene = () => {
           jointIcon.addEventListener("click", () => {
             if (selectedMesh.material) {
               selectedMesh.material = decalMaterial;
-              selectedMesh.material.albedoTexture.uScale =
+              selectedMesh.material.uScale =
                 currentJointSize == standartJointSize
                   ? scaleFactor
                   : (standartJointSize / currentJointSize) * scaleFactor;
-              selectedMesh.material.albedoTexture.vScale =
+              selectedMesh.material.vScale =
                 currentJointSize == standartJointSize
                   ? scaleFactor
                   : (standartJointSize / currentJointSize) * scaleFactor;
