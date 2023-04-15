@@ -55,7 +55,7 @@ const onSceneMount = (e) => {
       const textures = [
         {
           name: "Tile 1 (30x30)",
-          url: "textures/tile1(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile1(30x30).jpg",
           width: "30",
           height: "30",
         },
