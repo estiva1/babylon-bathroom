@@ -25,7 +25,7 @@ const onSceneMount = (e) => {
     "camera1",
     1.3,
     1.3,
-    1.5,
+    1.1,
     new Vector3(0.3, 1.8, -2.5),
     scene
   );
@@ -61,61 +61,61 @@ const onSceneMount = (e) => {
         },
         {
           name: "Tile 2 (30x30)",
-          url: "textures/tile2(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile2(30x30).jpg",
           width: "30",
           height: "30",
         },
         {
           name: "Tile 3 (60x30)",
-          url: "textures/tile3(60x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile3(60x30).jpg",
           width: "60",
           height: "30",
         },
         {
           name: "Tile 4-1 (30x60)",
-          url: "textures/tile4_1(30x60).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile4_1(30x60).jpg",
           width: "30",
           height: "60",
         },
         {
           name: "Tile 4-2 (30x30)",
-          url: "textures/tile4_2(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile4_2(30x30).jpg",
           width: "30",
           height: "30",
         },
         {
           name: "Tile 5-1 (30x30)",
-          url: "textures/tile5_1(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile5_1(30x30).jpg",
           width: "30",
           height: "30",
         },
         {
           name: "Tile 5-2 (60x60)",
-          url: "textures/tile5_2(60x60).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile5_2(30x60).jpg",
           width: "60",
           height: "60",
         },
         {
           name: "Tile 6 (30x30)",
-          url: "textures/tile6(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile6(30x30).jpg",
           width: "30",
           height: "30",
         },
         {
           name: "Tile 7-1 (60x60)",
-          url: "textures/tile7_1(60x60).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile7_1(60x60).jpg",
           width: "60",
           height: "60",
         },
         {
           name: "Tile 7-2 (30x30)",
-          url: "textures/tile7_2(30x30).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile7_2(30x30).jpg",
           width: "30",
           height: "30",
         },
         {
           name: "Tile 8 (60x60)",
-          url: "textures/tile8(60x60).jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/tile8(60x60).jpg",
           width: "60",
           height: "60",
         },
@@ -127,7 +127,7 @@ const onSceneMount = (e) => {
         },
         {
           name: "Tile 10 (fill)",
-          url: "textures/Asphal01.jpg",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/Asphal01.jpg",
           width: "_",
           height: "_",
         },
@@ -141,8 +141,16 @@ const onSceneMount = (e) => {
 
       // joints
       const joints = [
-        { color: "Dark Joints", url: "textures/dark.png", size: "30" },
-        { color: "Light Joints", url: "textures/light.png", size: "30" },
+        {
+          color: "Dark Joints",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/dark.png",
+          size: "30",
+        },
+        {
+          color: "Light Joints",
+          url: "https://raw.githubusercontent.com/estiva1/babylon-bathroom/main/glb-models/light.png",
+          size: "30",
+        },
       ];
 
       const scaleFactor = 10;
