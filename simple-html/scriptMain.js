@@ -155,8 +155,9 @@ const createScene = () => {
       document.body.appendChild(popup);
 
       for (let i = 0; i < textures.length; i++) {
-        ((texture) => {
-          var textureObject = new BABYLON.Texture(texture.url, scene);
+        (() => {
+          const textureObject = new BABYLON.Texture(textures[i].url, scene);
+          const textureObject1 = new BABYLON.Texture(textures[i].url, scene);
 
           const textureContainer = document.createElement("div");
           textureContainer.style.margin = "5px";
@@ -187,6 +188,7 @@ const createScene = () => {
 
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
+              
               selectedMesh.material.albedoTexture = textureObject;
               selectedMesh.material.albedoTexture.uScale =
                 currentTileWidth == standartTileWidth
@@ -213,11 +215,11 @@ const createScene = () => {
           decalMaterial.transparencyMode =
             BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
           decalMaterial.backFaceCulling = false;
-          //decalMaterial.diffuseTexture.uScale = 10;
-          //decalMaterial.diffuseTexture.vScale = 10;
           decalMaterial.diffuseTexture = jointObject;
           decalMaterial.diffuseTexture.hasAlpha = true;
           decalMaterial.useAlphaFromDiffuseTexture = true;
+          decalMaterial.diffuseTexture.uScale = 10;
+          decalMaterial.diffuseTexture.vScale = 10;
 
           const jointContainer = document.createElement("div");
           jointContainer.style.margin = "5px";
@@ -241,7 +243,7 @@ const createScene = () => {
 
           const currentJointSize = joints[j].size;
 
-          const scaleFactor = 10;
+          const scaleFactor = 20;
           const standartJointSize = 30;
 
           jointIcon.addEventListener("click", () => {
