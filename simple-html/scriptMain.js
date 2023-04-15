@@ -24,7 +24,7 @@ const createScene = () => {
     new BABYLON.Vector3(-50, 100, -200),
     scene
   );
-  pointLight.intensity = 35;
+  pointLight.intensity = 45;
 
   const camera = new BABYLON.ArcRotateCamera(
     "Camera",
@@ -157,7 +157,6 @@ const createScene = () => {
       for (let i = 0; i < textures.length; i++) {
         (() => {
           const textureObject = new BABYLON.Texture(textures[i].url, scene);
-          const textureObject1 = new BABYLON.Texture(textures[i].url, scene);
 
           const textureContainer = document.createElement("div");
           textureContainer.style.margin = "5px";
@@ -188,7 +187,6 @@ const createScene = () => {
 
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
-              
               selectedMesh.material.albedoTexture = textureObject;
               selectedMesh.material.albedoTexture.uScale =
                 currentTileWidth == standartTileWidth
@@ -202,67 +200,94 @@ const createScene = () => {
             popup.style.display = "none";
           });
           popup.appendChild(textureContainer);
+
+          for (let j = 0; j < joints.length; j++) {
+            ((joint) => {
+              const jointObject = new BABYLON.Texture(joint.url, scene);
+              const decalMaterial = new BABYLON.StandardMaterial(
+                "decal",
+                scene
+              );
+
+              decalMaterial.specularColor = new BABYLON.Color3(0, 0, 0); //simulating matte texture
+              decalMaterial.alpha = 1;
+              decalMaterial.transparencyMode =
+                BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
+              decalMaterial.backFaceCulling = false;
+              decalMaterial.diffuseTexture = jointObject;
+              decalMaterial.diffuseTexture.hasAlpha = true;
+              decalMaterial.useAlphaFromDiffuseTexture = true;
+
+              // scale factor
+              decalMaterial.diffuseTexture.uScale = 10;
+              decalMaterial.diffuseTexture.vScale = 10;
+
+              const jointContainer = document.createElement("div");
+              jointContainer.style.margin = "5px";
+              jointContainer.style.padding = "0px";
+
+              const jointIcon = document.createElement("img");
+              jointIcon.src = joints[j].url;
+              jointIcon.style.width = "50px";
+              jointIcon.style.height = "50px";
+              jointIcon.style.margin = "0px";
+              jointIcon.style.cursor = "pointer";
+
+              const jointText = document.createElement("p");
+              jointText.style.margin = "0px";
+              jointText.style.fontSize = "10px";
+
+              const jointName = joints[j].color;
+              jointText.innerHTML = jointName;
+              jointContainer.appendChild(jointIcon);
+              jointContainer.appendChild(jointText);
+
+              const currentJointSize = joints[j].size;
+
+              const standartJointSize = 30;
+
+              jointIcon.addEventListener("click", () => {
+                if (selectedMesh.material) {
+                  selectedMesh.material = decalMaterial;
+
+                  //////////////////////////////////
+                  // Get the selected mesh's current material texture
+                  var currentTexture  = selectedMesh.material.diffuseTexture;
+
+                  // Create a new texture with the same properties as the current texture
+                  var duplicatedTexture = new BABYLON.Texture(
+                    currentTexture.name,
+                    scene
+                  );
+                  duplicatedTexture.hasAlpha = currentTexture.hasAlpha;
+                  duplicatedTexture.level = currentTexture.level;
+                  duplicatedTexture.uOffset = currentTexture.uOffset;
+                  duplicatedTexture.vOffset = currentTexture.vOffset;
+                  duplicatedTexture.uScale = currentTexture.uScale;
+                  duplicatedTexture.vScale = currentTexture.vScale;
+                  duplicatedTexture.wrapU = currentTexture.wrapU;
+                  duplicatedTexture.wrapV = currentTexture.wrapV;
+
+                  // Set the duplicated texture as the material texture
+                  selectedMesh.material.diffuseTexture = duplicatedTexture;
+                  //////////////////////////////////
+
+                  selectedMesh.material.albedoTexture.uScale =
+                    currentJointSize == standartJointSize
+                      ? scaleFactor
+                      : (standartJointSize / currentJointSize) * scaleFactor;
+                  selectedMesh.material.albedoTexture.vScale =
+                    currentJointSize == standartJointSize
+                      ? scaleFactor
+                      : (standartJointSize / currentJointSize) * scaleFactor;
+                }
+                popup.style.display = "none";
+              });
+              popup.appendChild(jointContainer);
+            })(joints[j]);
+          } //---joints end
         })(textures[i]);
       }
-
-      for (let j = 0; j < joints.length; j++) {
-        ((joint) => {
-          const jointObject = new BABYLON.Texture(joint.url, scene);
-          const decalMaterial = new BABYLON.StandardMaterial("decal", scene);
-
-          decalMaterial.specularColor = new BABYLON.Color3(0, 0, 0); //simulating matte texture
-          decalMaterial.alpha = 1;
-          decalMaterial.transparencyMode =
-            BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
-          decalMaterial.backFaceCulling = false;
-          decalMaterial.diffuseTexture = jointObject;
-          decalMaterial.diffuseTexture.hasAlpha = true;
-          decalMaterial.useAlphaFromDiffuseTexture = true;
-          decalMaterial.diffuseTexture.uScale = 10;
-          decalMaterial.diffuseTexture.vScale = 10;
-
-          const jointContainer = document.createElement("div");
-          jointContainer.style.margin = "5px";
-          jointContainer.style.padding = "0px";
-
-          const jointIcon = document.createElement("img");
-          jointIcon.src = joints[j].url;
-          jointIcon.style.width = "50px";
-          jointIcon.style.height = "50px";
-          jointIcon.style.margin = "0px";
-          jointIcon.style.cursor = "pointer";
-
-          const jointText = document.createElement("p");
-          jointText.style.margin = "0px";
-          jointText.style.fontSize = "10px";
-
-          const jointName = joints[j].color;
-          jointText.innerHTML = jointName;
-          jointContainer.appendChild(jointIcon);
-          jointContainer.appendChild(jointText);
-
-          const currentJointSize = joints[j].size;
-
-          const scaleFactor = 20;
-          const standartJointSize = 30;
-
-          jointIcon.addEventListener("click", () => {
-            if (selectedMesh.material) {
-              selectedMesh.material = decalMaterial;
-              selectedMesh.material.uScale =
-                currentJointSize == standartJointSize
-                  ? scaleFactor
-                  : (standartJointSize / currentJointSize) * scaleFactor;
-              selectedMesh.material.vScale =
-                currentJointSize == standartJointSize
-                  ? scaleFactor
-                  : (standartJointSize / currentJointSize) * scaleFactor;
-            }
-            popup.style.display = "none";
-          });
-          popup.appendChild(jointContainer);
-        })(joints[j]);
-      } //---joints end
 
       //popup modal
       let selectedMesh;
