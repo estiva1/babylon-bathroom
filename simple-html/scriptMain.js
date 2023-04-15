@@ -51,72 +51,72 @@ const createScene = () => {
     },
     {
       name: "Tile 3 (60x30)",
-      url: "textures/tile4(60x30).jpg",
+      url: "textures/tile3(60x30).jpg",
       width: "60",
       height: "30",
     },
     {
-      name: "Tile 4 (30x60)",
+      name: "Tile 4-1 (30x60)",
       url: "textures/tile4_1(30x60).jpg",
       width: "30",
       height: "60",
     },
     {
-      name: "Tile 5 (30x30)",
+      name: "Tile 4-2 (30x30)",
       url: "textures/tile4_2(30x30).jpg",
       width: "30",
       height: "30",
     },
     {
-      name: "Tile 6 (30x30)",
-      url: "textures/tile5(30x30).jpg",
+      name: "Tile 5-1 (30x30)",
+      url: "textures/tile5_1(30x30).jpg",
       width: "30",
       height: "30",
     },
     {
-      name: "Tile 7 (30x60)",
-      url: "textures/tile5_1(30x60).jpg",
+      name: "Tile 5-2 (30x60)",
+      url: "textures/tile5_2(30x60).jpg",
       width: "30",
       height: "60",
     },
     {
-      name: "Tile 8 (30x30)",
+      name: "Tile 6 (30x30)",
       url: "textures/tile6(30x30).jpg",
       width: "30",
       height: "30",
     },
     {
-      name: "Tile 9 (60x60)",
-      url: "textures/tile6_1(60x60).jpg",
+      name: "Tile 7-1 (60x60)",
+      url: "textures/tile7_1(60x60).jpg",
       width: "60",
       height: "60",
     },
     {
-      name: "Tile 10 (30x30)",
-      url: "textures/tile7(30x30).jpg",
+      name: "Tile 7-2 (30x30)",
+      url: "textures/tile7_2(30x30).jpg",
       width: "30",
       height: "30",
     },
     {
-      name: "Tile 11 (60x60)",
-      url: "textures/tile9(60x60).jpg",
+      name: "Tile 8 (60x60)",
+      url: "textures/tile8(60x60).jpg",
       width: "60",
       height: "60",
     },
     {
-      name: "Tile 12 (fill)",
+      name: "Tile 9 (fill)",
       url: "textures/Water_Sp.jpg",
       width: "_",
       height: "_",
     },
     {
-      name: "Tile 13 (fill)",
+      name: "Tile 10 (fill)",
       url: "textures/Asphal01.jpg",
       width: "_",
       height: "_",
     },
     {
-      name: "Tile 14 (fill)",
+      name: "Tile 11 (fill)",
       url: "textures/Grass_01.jpg",
       width: "_",
       height: "_",
@@ -125,8 +125,8 @@ const createScene = () => {
 
   // joints
   const joints = [
-    { color: "Dark", url: "textures/dark.png", size: "30" },
-    { color: "Light", url: "textures/light.png", size: "30" },
+    { color: "Dark Joints", url: "textures/dark.png", size: "30" },
+    { color: "Light Joints", url: "textures/light.png", size: "30" },
     // { color: "Cat :)", url: "textures/Cat-PNG-2.png", size: "30" },
   ];
 
@@ -253,7 +253,7 @@ const createScene = () => {
                   // clonedMesh.rotation = new BABYLON.Vector3(0, 0, 0);
                   // clonedMesh.scaling = new BABYLON.Vector3(1, 1, 1);
 
-                  clonedMesh.material = decalMaterial; // neither albedo nor diffuse!!!
+                  clonedMesh.material = decalMaterial;
 
                   clonedMesh.material.uScale =
                     currentJointSize == standartJointSize
