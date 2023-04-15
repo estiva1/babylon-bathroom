@@ -202,8 +202,8 @@ const createScene = () => {
           popup.appendChild(textureContainer);
 
           for (let j = 0; j < joints.length; j++) {
-            ((joint) => {
-              const jointObject = new BABYLON.Texture(joint.url, scene);
+            (() => {
+              const jointObject = new BABYLON.Texture(joints[j].url, scene);
               const decalMaterial = new BABYLON.StandardMaterial(
                 "decal",
                 scene
@@ -247,36 +247,19 @@ const createScene = () => {
               const standartJointSize = 30;
 
               jointIcon.addEventListener("click", () => {
-                if (selectedMesh.material) {
-                  selectedMesh.material = decalMaterial;
+                if (selectedMesh) {
+                  const clonedMesh = selectedMesh.clone("clonedJointMesh");
+                  // clonedMesh.position = new BABYLON.Vector3(0, 0, 0);
+                  // clonedMesh.rotation = new BABYLON.Vector3(0, 0, 0);
+                  // clonedMesh.scaling = new BABYLON.Vector3(1, 1, 1);
 
-                  //////////////////////////////////
-                  // Get the selected mesh's current material texture
-                  var currentTexture  = selectedMesh.material.diffuseTexture;
+                  clonedMesh.material = decalMaterial; // neither albedo nor diffuse!!!
 
-                  // Create a new texture with the same properties as the current texture
-                  var duplicatedTexture = new BABYLON.Texture(
-                    currentTexture.name,
-                    scene
-                  );
-                  duplicatedTexture.hasAlpha = currentTexture.hasAlpha;
-                  duplicatedTexture.level = currentTexture.level;
-                  duplicatedTexture.uOffset = currentTexture.uOffset;
-                  duplicatedTexture.vOffset = currentTexture.vOffset;
-                  duplicatedTexture.uScale = currentTexture.uScale;
-                  duplicatedTexture.vScale = currentTexture.vScale;
-                  duplicatedTexture.wrapU = currentTexture.wrapU;
-                  duplicatedTexture.wrapV = currentTexture.wrapV;
-
-                  // Set the duplicated texture as the material texture
-                  selectedMesh.material.diffuseTexture = duplicatedTexture;
-                  //////////////////////////////////
-
-                  selectedMesh.material.albedoTexture.uScale =
+                  clonedMesh.material.uScale =
                     currentJointSize == standartJointSize
                       ? scaleFactor
                       : (standartJointSize / currentJointSize) * scaleFactor;
-                  selectedMesh.material.albedoTexture.vScale =
+                  clonedMesh.material.vScale =
                     currentJointSize == standartJointSize
                       ? scaleFactor
                       : (standartJointSize / currentJointSize) * scaleFactor;
