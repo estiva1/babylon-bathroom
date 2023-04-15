@@ -254,18 +254,25 @@ const createScene = () => {
                   // clonedMesh.rotation = new BABYLON.Vector3(0, 0, 0);
                   // clonedMesh.scaling = new BABYLON.Vector3(1, 1, 1);
 
-                  clonedMesh.material = decalMaterial;
-
-                  decalMaterial.diffuseTexture.uScale =
-                    currentJointHorLength == standartJointHorLength
-                      ? scaleFactor
-                      : (standartJointHorLength / currentJointHorLength) *
-                        scaleFactor;
-                  decalMaterial.diffuseTexture.vScale =
-                    currentJointVerLength == standartJointVerLength
-                      ? scaleFactor
-                      : (standartJointVerLength / currentJointVerLength) *
-                        scaleFactor;
+                  // checking if the selected texure is tile or solid color
+                  if ( 
+                    !isNaN(parseFloat(currentJointHorLength)) &&
+                    isFinite(currentJointHorLength) &&
+                    !isNaN(parseFloat(currentJointVerLength)) &&
+                    isFinite(currentJointVerLength)
+                  ) {
+                    clonedMesh.material = decalMaterial;
+                    decalMaterial.diffuseTexture.uScale =
+                      currentJointHorLength == standartJointHorLength
+                        ? scaleFactor
+                        : (standartJointHorLength / currentJointHorLength) *
+                          scaleFactor;
+                    decalMaterial.diffuseTexture.vScale =
+                      currentJointVerLength == standartJointVerLength
+                        ? scaleFactor
+                        : (standartJointVerLength / currentJointVerLength) *
+                          scaleFactor;
+                  }
                 }
                 popup.style.display = "none";
               });
