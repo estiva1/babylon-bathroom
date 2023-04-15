@@ -281,7 +281,7 @@ const onSceneMount = (e) => {
                         ? scaleFactor
                         : (standartJointVerLength / currentJointVerLength) *
                           scaleFactor;
-                  } else joints[j].style.cursor = "not-allowed";
+                  }
                 }
                 popup.style.display = "none";
               });
