@@ -129,6 +129,10 @@ const createScene = () => {
     { color: "Light Joints", url: "textures/light.png", size: "30" },
   ];
 
+  const scaleFactor = 10;
+  const standartTileWidth = 30;
+  const standartTileHeight = 30;
+
   BABYLON.SceneLoader.ImportMesh(
     null,
     "./models/",
@@ -180,10 +184,6 @@ const createScene = () => {
           const currentTileWidth = textures[i].width;
           const currentTileHeight = textures[i].height;
 
-          const scaleFactor = 10;
-          const standartTileWidth = 30;
-          const standartTileHeight = 30;
-
           icon.addEventListener("click", () => {
             if (selectedMesh.material) {
               selectedMesh.material.albedoTexture = textureObject;
@@ -212,14 +212,10 @@ const createScene = () => {
               decalMaterial.alpha = 1;
               decalMaterial.transparencyMode =
                 BABYLON.Material.MATERIAL_ALPHATESTANDBLEND;
-              decalMaterial.backFaceCulling = false;
+              decalMaterial.backFaceCulling = false; // if false, decals are not visible from the other side
               decalMaterial.diffuseTexture = jointObject;
               decalMaterial.diffuseTexture.hasAlpha = true;
               decalMaterial.useAlphaFromDiffuseTexture = true;
-
-              // scale factor
-              // decalMaterial.diffuseTexture.uScale = 10;
-              // decalMaterial.diffuseTexture.vScale = 10;
 
               const jointContainer = document.createElement("div");
               jointContainer.style.margin = "5px";
@@ -255,7 +251,7 @@ const createScene = () => {
                   // clonedMesh.scaling = new BABYLON.Vector3(1, 1, 1);
 
                   // checking if the selected texure is tile or solid color
-                  if ( 
+                  if (
                     !isNaN(parseFloat(currentJointHorLength)) &&
                     isFinite(currentJointHorLength) &&
                     !isNaN(parseFloat(currentJointVerLength)) &&
