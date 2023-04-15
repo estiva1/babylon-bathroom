@@ -24,7 +24,7 @@ const onSceneMount = (e) => {
   const camera = new ArcRotateCamera(
     "camera1",
     1.3,
-    1.3,
+    1.2,
     1.1,
     new Vector3(0.3, 1.8, -2.5),
     scene
@@ -220,6 +220,12 @@ const onSceneMount = (e) => {
               decalMaterial.diffuseTexture.hasAlpha = true;
               decalMaterial.useAlphaFromDiffuseTexture = true;
 
+              const standartJointHorLength = standartTileWidth;
+              const standartJointVerLength = standartTileHeight;
+
+              const currentJointHorLength = currentTileWidth;
+              const currentJointVerLength = currentTileHeight;
+
               const jointContainer = document.createElement("div");
               jointContainer.style.margin = "5px";
               jointContainer.style.padding = "0px";
@@ -230,6 +236,16 @@ const onSceneMount = (e) => {
               jointIcon.style.height = "50px";
               jointIcon.style.margin = "0px";
               jointIcon.style.cursor = "pointer";
+              if (
+                !(
+                  !isNaN(parseFloat(currentJointHorLength)) &&
+                  isFinite(currentJointHorLength) &&
+                  !isNaN(parseFloat(currentJointVerLength)) &&
+                  isFinite(currentJointVerLength)
+                )
+              ) {
+                jointIcon.style.cursor = "not-allowed";
+              }
 
               const jointText = document.createElement("p");
               jointText.style.margin = "0px";
@@ -239,12 +255,6 @@ const onSceneMount = (e) => {
               jointText.innerHTML = jointName;
               jointContainer.appendChild(jointIcon);
               jointContainer.appendChild(jointText);
-
-              const standartJointHorLength = standartTileWidth;
-              const standartJointVerLength = standartTileHeight;
-
-              const currentJointHorLength = currentTileWidth;
-              const currentJointVerLength = currentTileHeight;
 
               jointIcon.addEventListener("click", () => {
                 if (selectedMesh) {
@@ -271,7 +281,7 @@ const onSceneMount = (e) => {
                         ? scaleFactor
                         : (standartJointVerLength / currentJointVerLength) *
                           scaleFactor;
-                  }
+                  } else joints[j].style.cursor = "not-allowed";
                 }
                 popup.style.display = "none";
               });

@@ -223,6 +223,12 @@ const createScene = () => {
               decalMaterial.diffuseTexture.hasAlpha = true;
               decalMaterial.useAlphaFromDiffuseTexture = true;
 
+              const standartJointHorLength = standartTileWidth;
+              const standartJointVerLength = standartTileHeight;
+
+              const currentJointHorLength = currentTileWidth;
+              const currentJointVerLength = currentTileHeight;
+
               const jointContainer = document.createElement("div");
               jointContainer.style.margin = "5px";
               jointContainer.style.padding = "0px";
@@ -233,6 +239,16 @@ const createScene = () => {
               jointIcon.style.height = "50px";
               jointIcon.style.margin = "0px";
               jointIcon.style.cursor = "pointer";
+              if (
+                !(
+                  !isNaN(parseFloat(currentJointHorLength)) &&
+                  isFinite(currentJointHorLength) &&
+                  !isNaN(parseFloat(currentJointVerLength)) &&
+                  isFinite(currentJointVerLength)
+                )
+              ) {
+                jointIcon.style.cursor = "not-allowed";
+              }
 
               const jointText = document.createElement("p");
               jointText.style.margin = "0px";
@@ -242,12 +258,6 @@ const createScene = () => {
               jointText.innerHTML = jointName;
               jointContainer.appendChild(jointIcon);
               jointContainer.appendChild(jointText);
-
-              const standartJointHorLength = standartTileWidth;
-              const standartJointVerLength = standartTileHeight;
-
-              const currentJointHorLength = currentTileWidth;
-              const currentJointVerLength = currentTileHeight;
 
               jointIcon.addEventListener("click", () => {
                 if (selectedMesh) {
@@ -274,6 +284,8 @@ const createScene = () => {
                         ? scaleFactor
                         : (standartJointVerLength / currentJointVerLength) *
                           scaleFactor;
+                  } else {
+                    joints[j].style.cursor = "not-allowed";
                   }
                 }
                 popup.style.display = "none";
