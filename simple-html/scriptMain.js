@@ -74,9 +74,9 @@ const createScene = () => {
       height: "30",
     },
     {
-      name: "Tile 5-2 (30x60)",
-      url: "textures/tile5_2(30x60).jpg",
-      width: "30",
+      name: "Tile 5-2 (60x60)",
+      url: "textures/tile5_2(60x60).jpg",
+      width: "60",
       height: "60",
     },
     {
@@ -127,7 +127,6 @@ const createScene = () => {
   const joints = [
     { color: "Dark Joints", url: "textures/dark.png", size: "30" },
     { color: "Light Joints", url: "textures/light.png", size: "30" },
-    // { color: "Cat :)", url: "textures/Cat-PNG-2.png", size: "30" },
   ];
 
   BABYLON.SceneLoader.ImportMesh(
@@ -148,7 +147,7 @@ const createScene = () => {
       popup.style.top = "50px";
       popup.style.left = "50px";
       popup.style.width = "220px";
-      popup.style.height = "200px";
+      popup.style.height = "300px";
       popup.style.background = "#fff";
       popup.style.overflow = "scroll";
       popup.style.display = "none";
@@ -219,8 +218,8 @@ const createScene = () => {
               decalMaterial.useAlphaFromDiffuseTexture = true;
 
               // scale factor
-              decalMaterial.diffuseTexture.uScale = 10;
-              decalMaterial.diffuseTexture.vScale = 10;
+              // decalMaterial.diffuseTexture.uScale = 10;
+              // decalMaterial.diffuseTexture.vScale = 10;
 
               const jointContainer = document.createElement("div");
               jointContainer.style.margin = "5px";
@@ -242,27 +241,31 @@ const createScene = () => {
               jointContainer.appendChild(jointIcon);
               jointContainer.appendChild(jointText);
 
-              const currentJointSize = joints[j].size;
+              const standartJointHorLength = standartTileWidth;
+              const standartJointVerLength = standartTileHeight;
 
-              const standartJointSize = 30;
+              const currentJointHorLength = currentTileWidth;
+              const currentJointVerLength = currentTileHeight;
 
               jointIcon.addEventListener("click", () => {
                 if (selectedMesh) {
-                  const clonedMesh = selectedMesh.clone("clonedJointMesh");
+                  var clonedMesh = selectedMesh.clone("clonedJointMesh");
                   // clonedMesh.position = new BABYLON.Vector3(0, 0, 0);
                   // clonedMesh.rotation = new BABYLON.Vector3(0, 0, 0);
                   // clonedMesh.scaling = new BABYLON.Vector3(1, 1, 1);
 
                   clonedMesh.material = decalMaterial;
 
-                  clonedMesh.material.uScale =
-                    currentJointSize == standartJointSize
+                  decalMaterial.diffuseTexture.uScale =
+                    currentJointHorLength == standartJointHorLength
                       ? scaleFactor
-                      : (standartJointSize / currentJointSize) * scaleFactor;
-                  clonedMesh.material.vScale =
-                    currentJointSize == standartJointSize
+                      : (standartJointHorLength / currentJointHorLength) *
+                        scaleFactor;
+                  decalMaterial.diffuseTexture.vScale =
+                    currentJointVerLength == standartJointVerLength
                       ? scaleFactor
-                      : (standartJointSize / currentJointSize) * scaleFactor;
+                      : (standartJointVerLength / currentJointVerLength) *
+                        scaleFactor;
                 }
                 popup.style.display = "none";
               });
