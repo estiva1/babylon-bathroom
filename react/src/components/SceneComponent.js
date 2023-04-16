@@ -202,7 +202,7 @@ const onSceneMount = (e) => {
                   ? scaleFactor
                   : (standartTileHeight / currentTileHeight) * scaleFactor;
             }
-            popup.style.display = "none";
+            //popup.style.display = "none";
           });
           popup.appendChild(textureContainer);
 
